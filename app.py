@@ -2,218 +2,226 @@ from pathlib import Path
 
 import streamlit as st
 from PIL import Image
-#import matplotlib.pyplot as plt
-import numpy as np
+import base64
+import datetime
 
 # --- PATH SETTINGS ---
 current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
 css_file = current_dir / "styles" / "main.css"
-resume_file = current_dir /"assets"/"Divyansh_Resume.pdf"
-profile_pic = current_dir / "assets" / "profile.jpeg"
+resume_file = current_dir / "assets" / "Divyansh_Resume.pdf"
+profile_pic_path = current_dir / "assets" / "profile.jpeg"
 
-
-# --- GENERAL SETTINGS ---
+# --- PAGE CONFIG ---
 PAGE_TITLE = "Digital CV | Divyansh"
 PAGE_ICON = ":wave:"
-NAME = "Divyansh"
-DESCRIPTION = """
-Results-oriented Analytics Manager with expertise in data analysis, reporting automation, and insight generation. Proven ability to turn data into actionable business recommendations and drive process improvements.
+st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
+
+# --- DARK THEME CSS (embedded) ---
+DARK_CSS = """
+:root{
+  --bg:#0b1020;
+  --card:#0f1724;
+  --muted:#94a3b8;
+  --accent:#60a5fa;
+  --accent-2:#7c3aed;
+  --glass: rgba(255,255,255,0.03);
+}
+
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(180deg, var(--bg) 0%, #071028 100%);
+}
+
+.section-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  color: #e6eef8;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.profile-img{
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.04);
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  margin:4px 4px 4px 0;
+  border-radius:999px;
+  background: linear-gradient(90deg,#4f46e5,#a78bfa);
+  color: #ffffff !important;
+  font-weight:600;
+  font-size:13px;
+}
+
+.small-muted{ color: var(--muted); font-size:13px;}
+
+a.link-dark{ color: var(--accent); text-decoration:none; font-weight:600}
+
+/* hide Streamlit footer */
+#MainMenu {visibility: hidden;} 
+footer {visibility: hidden;}
 """
-EMAIL = "Divyansh_19@yahoo.com"
-SOCIAL_MEDIA = {
-    "📉 Kaggle": "https://www.kaggle.com/divyansh1908",
-    "💻 LinkedIn": "https://www.linkedin.com/in/divyansh-ds19/",
-    "📊 GitHub": "https://github.com/div190893-cpu",
-    "📞 Whatsapp": "https://api.whatsapp.com/send/?phone=918090821315&text=Hello+Divyansh%2C+I+saw+your+resume+and+would+like+to+connect.&type=phone_number&app_absent=0",
-}
-PROJECTS = {
 
-    "🏆 Covid case study using folium": "https://www.kaggle.com/code/zuhaibbutt/covid-casestudy-using-folium",
-    "🏆 Roman Urdu predition using machine learning models": "https://www.kaggle.com/code/zuhaibbutt/roman-urdu-prediction-with-test-value",
-    "🏆 Dashboard on Tableau ":"https://public.tableau.com/app/profile/zuhaib3028/viz/lab12_16630698501100/Story1",
-    "🏆 Common Disease Prediction using Machine Learning and NLP with Framework Flask" : "https://github.com/zuhaibbutt786/Ai-medical-chatbot", 
-    "🏆 Simple Automatic-web-scraper":"https://github.com/zuhaibbutt786/automatic-web-scraper",
-    "🏆 TelecomOptiXcel ":"https://github.com/zuhaibbutt786/telecom-sheets-app",
-    "🏆 Laptop-price-prediction-with-streamlit ":"https://github.com/zuhaibbutt786/Laptop-price-prediction-with-streamlit",
-    "🏆 Traffic-sign-classification-and-detection":"https://github.com/zuhaibbutt786/Traffic-sign-classification-and-detection",
-   
-}
+# inject CSS
+st.markdown(f"<style>{DARK_CSS}</style>", unsafe_allow_html=True)
 
+# helper to read file bytes
+def get_file_download_link(file_path: Path, label: str="Download"):
+    with open(file_path, "rb") as f:
+        data = f.read()
+    b64 = base64.b64encode(data).decode()
+    href = f"data:application/octet-stream;base64,{b64}"
+    return href
 
-st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
-
-
-# --- LOAD CSS, PDF & PROFIL PIC ---
-with open(css_file) as f:
-    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
-with open(resume_file, "rb") as pdf_file:
-    PDFbyte = pdf_file.read()
-profile_pic = Image.open(profile_pic)
-
-
-# --- HERO SECTION ---
-col1, col2 = st.columns(2, gap="small")
+# --- PROFILE ---
+col1, col2 = st.columns([1, 2], gap="small")
 with col1:
-    st.image(profile_pic, width=230)
+    try:
+        profile_pic = Image.open(profile_pic_path)
+        st.image(profile_pic, width=230)
+    except Exception:
+        st.empty()
 
 with col2:
-    st.title(NAME)
-    st.write(DESCRIPTION)
-    st.download_button(
-        label=" 📄 Download Resume",
-        data=PDFbyte,
-        file_name=resume_file.name,
-        mime="application/octet-stream",
-    )
-    st.write("📫", EMAIL)
+    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='margin:0 0 6px 0'>{'Divyansh'}</h1>", unsafe_allow_html=True)
+    st.markdown(f"<div class='small-muted'>Results-oriented Analytics Manager with expertise in data analysis, reporting automation, and insight generation. Proven ability to turn data into actionable business recommendations and drive process improvements.</div>", unsafe_allow_html=True)
 
+    # contact + download
+    cols = st.columns([1,1,1])
+    with cols[0]:
+        st.markdown(f"<div style='margin-top:10px'><strong>📫 Email</strong><br><a class='link-dark' href='mailto:Divyansh_19@yahoo.com'>Divyansh_19@yahoo.com</a></div>", unsafe_allow_html=True)
+    with cols[1]:
+        if resume_file.exists():
+            href = get_file_download_link(resume_file)
+            st.markdown(f"<div style='margin-top:10px'><strong>📄 Resume</strong><br><a href='{href}' download='{resume_file.name}' class='link-dark'>Download PDF</a></div>", unsafe_allow_html=True)
+        else:
+            st.markdown("<div class='small-muted'>Resume PDF not found in assets/</div>", unsafe_allow_html=True)
+    with cols[2]:
+        st.markdown(f"<div style='margin-top:10px'><strong>📅 Updated</strong><br><span class='small-muted'>{datetime.date.today().strftime('%b %d, %Y')}</span></div>", unsafe_allow_html=True)
 
-# --- SOCIAL LINKS ---
-st.write('\n')
-cols = st.columns(len(SOCIAL_MEDIA))
-for index, (platform, link) in enumerate(SOCIAL_MEDIA.items()):
-    cols[index].write(f"[{platform}]({link})")
+    # social badges
+    st.markdown("<div style='margin-top:12px'></div>", unsafe_allow_html=True)
+    socials = {
+        'Kaggle': 'https://www.kaggle.com/divyansh1908',
+        'LinkedIn': 'https://www.linkedin.com/in/divyansh-ds19/',
+        'GitHub': 'https://github.com/div190893-cpu',
+        'WhatsApp': 'https://api.whatsapp.com/send/?phone=918090821315&text=Hello+Divyansh',
+    }
+    badges_html = ""
+    icons = {
+        'Kaggle': '📊',
+        'LinkedIn': '💼',
+        'GitHub': '🐙',
+        'WhatsApp': '💬'
+    }
+    for k, v in socials.items():
+        icon = icons.get(k, '')
+        badges_html += f"<a class='badge' href='{v}' target='_blank'>{icon} {k}</a>"
+    st.markdown(badges_html, unsafe_allow_html=True)
 
+    st.markdown("</div>", unsafe_allow_html=True)
 
-# --- EXPERIENCE & QUALIFICATIONS ---
-st.write('\n')
-st.subheader("Experience & Qualification")
-st.write(
-    """
-- ✔️Strong foundation in Data Analysis, Statistical Methods, Forecasting, and Insight Generation.
-- ✔️Proficient in SQL, Excel, Data Visualization, Reporting Automation, and working knowledge of Python (if applicable—let me know if you want to include).
-- ✔️Solid understanding of analytics lifecycle—data extraction, cleaning, transformation, exploration, and interpretation.
-- ✔️Experience developing and presenting analytical insights to C-level and senior stakeholders for strategic decision-making.
-- ✔️Knowledge of machine learning basics, predictive analysis, and applied analytics concepts (optional—confirm if you want to add more ML-specific points).
-- ✔️Strong communication, leadership, and stakeholder management skills, ensuring alignment between data insights and business goals.
-- ✔️Proven ability to manage multiple analytics initiatives, lead teams, and deliver measurable business impact.
-- ✔️Familiar with data governance, audit readiness, and compliance-driven data analytics.
-"""
-)
+st.write('')
 
+# --- TWO-COLUMN LAYOUT: LEFT = Experience, Right = Skills & Projects ---
+left, right = st.columns([2, 1], gap='large')
 
-# --- SKILLS ---
-st.write('\n')
-st.subheader("Hard Skills")
-st.write(
-    """
-- 👩‍💻 Programming: Python (Scikit-learn, Panda, numpy , pyspark), SQL.
-- 📊 Data Visulization: PowerBi, MS Excel, Plotly, Streamlit.
-- 📚 Modeling: supervised and unsupervised learning models.
-- 🗄️ Databases: MySQL,MS Access.
-"""
-)
+with left:
+    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+    st.subheader('Experience & Qualifications')
+    st.markdown("""
+- **Strong foundation** in Data Analysis, Statistical Methods, Forecasting, and Insight Generation.
+- **Experienced** in working with large datasets, performing trend analysis, forecasting, and generating actionable insights for cross-functional teams.
+- **Led** end-to-end analytics projects—data collection, cleaning, modeling, dashboarding, and stakeholder communication.
+- **Skilled** at translating technical insights into clear business recommendations for senior leadership and procurement teams.
+- **Familiar** with data governance, audit readiness, and compliance-driven analytics workflows.
+""", unsafe_allow_html=True)
 
+    st.markdown("</div>", unsafe_allow_html=True)
 
-# --- WORK HISTORY ---
-st.write('\n')
-st.subheader("Work History")
-st.write("---")
+    st.write('')
+    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+    st.subheader('Work History')
 
-# --- JOB 1
-st.write("🚧", "**Associate Manager | HCLTECH, Lucknow **")
-st.write("Dec' 24  - Present")
-st.write(
-    """
-- ► Used PowerBI and SQL to redeﬁne and track KPIs surrounding marketing initiatives, and supplied recommendations to boost landing page conversion rate by 38%
-- ► Led a team of 4 analysts to brainstorm potential marketing and sales improvements, and implemented A/B tests to generate 15% more client leads
-- ► Led data-driven software asset lifecycle management using ServiceNow, ensuring 98% asset data accuracy across procurement, deployment, and usage records.
-- ►Translated complex analytical insights into clear business recommendations for senior leadership, influencing procurement strategy and vendor negotiations.
-- ►Collaborated with Finance, IT, Procurement, and Legal to align software planning with budget cycles, compliance frameworks, and operational goals.
-- ►Implemented workflow and reporting automation within ServiceNow, improving processing efficiency and reducing data discrepancies by 25%.
-- ►Provided validated datasets and comprehensive documentation to support internal and external audits, ensuring 100% audit readiness.
-- ►Forecasted future software and resource requirements using historical trends and usage patterns, enabling more accurate budget planning and contract renewals.
-- ►Mentored internal teams on compliance standards, data interpretation, and effective usage of analytics dashboards, improving overall stakeholder adoption by 30%.
-"""
-)
+    # Job: Associate Manager
+    st.markdown("<strong>Associate Manager – Analytics & Software Asset Insights | HCLTECH, Lucknow</strong>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Jan 2025 – Present</span>", unsafe_allow_html=True)
+    st.write('')
+    st.markdown("""
+- Led data-driven software asset lifecycle management using ServiceNow, achieving **98% asset data accuracy** across procurement and usage records.
+- Analyzed license utilization and consumption trends to identify optimization opportunities, driving **12–18% annual cost savings**.
+- Developed automated Power BI dashboards and ServiceNow reports, cutting manual reporting time by **40%** and improving visibility for leadership.
+- Implemented workflow automation to reduce data discrepancies by **25%**, and supported internal/external audits to ensure **100% audit readiness**.
+- Mentored and managed a team of analysts; coordinated with Finance, IT, Procurement, and Legal to align analytics with business objectives.
+""", unsafe_allow_html=True)
 
-# --- JOB 2
-st.write('\n')
-st.write("🚧", "**Senior Software Engineer | HCLTECH, Lucknow **")
-st.write("Jan' 20 - Dec' 24")
-st.write(
-    """
-- ► Produced monthly reports using advanced Excel spreadsheet functions.
-- ► Created various Excel documents to assist with pulling metrics data and presenting  information to stakeholders for concise explanations of best placement for needed resources.
-- ► Utilized data visualization tools to effectively communicate business insights.
-- ► Extracted and interpreted data patterns to translate findings into actionable outcomes.
-- ►Analyzed large datasets on license utilization and consumption trends, identifying underutilized assets and driving 12–18% annual cost savings through optimization recommendations.
-- ►Developed automated dashboards and reports that improved visibility into spend, compliance gaps, and usage patterns, reducing manual reporting efforts by 40%.
-- ►Conducted periodic license compliance audits, reconciling entitlements vs. consumption and helping reduce audit exposure by 30%.
+    st.write('')
+    # Job: Senior Software Engineer (condensed / analytics focused)
+    st.markdown("<strong>Senior Software Engineer – Analytics Contributor | HCLTECH, Lucknow</strong>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Jan 2020 – Dec 2025</span>", unsafe_allow_html=True)
+    st.write('')
+    st.markdown("""
+- Produced monthly analytical reports and automated Excel/SQL pipelines for stakeholder reporting.
+- Built dashboards to communicate KPIs and supported data-driven resource allocation.
+- Led initiatives to optimize software spend and compliance, contributing to **12–18% cost savings** through data analysis.
+- Conducted periodic compliance reconciliations and improved reporting accuracy by **30%**.
+""", unsafe_allow_html=True)
 
-"""
-)
+    st.write('')
+    # Other roles
+    st.markdown("<strong>Senior Data Analyst | in3corp</strong>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Feb 2019 – Dec 2019</span>", unsafe_allow_html=True)
+    st.write('')
+    st.markdown("""
+- Wrote and optimized SQL scripts for complex analyses and report generation.
+- Developed analytical databases and client deliverables; performed SAP-related research for client engagements.
+""", unsafe_allow_html=True)
 
-# --- JOB 3
-st.write('\n')
-st.write("🚧", "**Senior Data Analyst | in3corp**")
-st.write("Feb' 19 - Dec' 19")
-st.write("""
-- ► Write and optimize SQL scripts for data analysis and report generation.
-- ► Identify and resolve data discrepancies and errors using advanced SQL queries.
-- ► Develop new analytical methodologies and queries to recover revenue and enhance client profitability.
-- ► Advise clients on efficient data recording and transaction management practices.
-- ► Contribute to analyst performance reviews and provide inputs for professional growth plans (PGPs).
-- ► Prepare, write, and present formal client deliverables, insights, and reports.
-- ► Build and maintain analytical databases from complex financial and operational data sources.
-- ► Conduct research and analysis on client SAP systems to support data-driven decisions.
+    st.write('')
+    st.markdown("<strong>Data Analyst | in3corp</strong>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Jul 2015 – Feb 2019</span>", unsafe_allow_html=True)
+    st.write('')
+    st.markdown("""
+- Extracted and analyzed data using SQL and Excel; automated reporting workflows and maintained KPI dashboards.
+""", unsafe_allow_html=True)
 
-""")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-# --- JOB 4
-st.write('\n')
-st.write("🚧", "**Data Analyst | in3corp**")
-st.write("Jul' 15 - Feb' 19")
-st.write(
-    """
-- ► Extract and analyze data using SQL queries and advanced Excel functions.
-- ► Develop and maintain data reports, dashboards, and KPIs.
-- ► Automate data processing and reporting workflows.
-- ► Identify and interpret data trends and business insights.
-- ► Ensure data quality, accuracy, and consistency across systems.
-"""
-)
+with right:
+    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+    st.subheader('Hard Skills')
+    st.markdown("""
+- **Programming:** Python (Pandas, NumPy, scikit-learn, PySpark) • SQL • Advanced Excel
+- **Visualization:** Power BI • Plotly • Streamlit • Tableau (basic)
+- **Databases / Tools:** MySQL • ServiceNow Reporting • MS Access
+- **Modeling:** Supervised & Unsupervised Learning • Forecasting • Predictive Analytics
+- **Other:** Reporting Automation • Data Governance • Audit-ready Analytics
+""", unsafe_allow_html=True)
 
+    st.write('')
+    st.subheader('Projects & Links')
+    st.write('')
+    # Projects (use your actual project links — placeholders below)
+    projects = {
+        "PhonePe Project (SQL + Python)": "https://github.com/div190893-cpu/PhonePe_Project",
+        "Resume Repository": "https://github.com/div190893-cpu/Resume",
+        "Luxury Housing Sales Analysis – Bengaluru": "https://github.com/div190893-cpu/Luxury-Housing-Sales-Analysis-Bengaluru"
+    }
+    for title, link in projects.items():
+        st.markdown(f"- [{title}]({link})")
 
-# --- Education ---
-st.write('\n')
-st.subheader("Education")
-st.write("---")
+    st.write('')
+    st.subheader('Education')
+    st.markdown("**B.Tech, Computer Science | UPTU** — Passing Year: 2015")
+    st.markdown("**Intermediate (PCM + Computer Science) | CBSE** — 2011")
+    st.markdown("**Matriculation | U.P. Board** — 2009")
 
-# --- Edu 1
-st.write('\n')
-st.write("📚", "**B.Tech| UPTU | Computer Science**")
-st.write("Passing Year: 2015")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-
-# --- Edu 2
-st.write('\n')
-st.write("📚", "**Intermediate | CBSE Board| PCM + Computer Science**")
-st.write("Passing Year: 2011")
-
-
-# --- Edu 3
-st.write('\n')
-st.write("📚", "**Matriculation | U.P.Board*")
-st.write("Passing Year: 2009")
-
-
-
-
-
-# --- Projects & Accomplishments ---
-st.write('\n')
-st.subheader("Projects & Accomplishments")
-st.write("---")
-for project, link in PROJECTS.items():
-    st.write(f"[{project}]({link})")
-
-    
-    
-hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)    
+# --- FOOTER ---
+st.write('')
+st.markdown("<div class='small-muted' style='text-align:center; padding:18px;'>Built with Streamlit • © {}</div>".format(datetime.date.today().year), unsafe_allow_html=True)
