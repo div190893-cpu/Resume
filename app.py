@@ -19,12 +19,12 @@ st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
 # --- DARK THEME CSS (embedded) ---
 DARK_CSS = """
 :root{
-  --bg:#0b1020;
-  --card:#0f1724;
-  --muted:#94a3b8;
-  --accent:#60a5fa;
-  --accent-2:#7c3aed;
-  --glass: rgba(255,255,255,0.03);
+  --bg:#000000;
+  --card:#111111;
+  --muted:#ffffff;
+  --accent:#3b82f6;
+  --accent-2:#60a5fa;
+  --glass: rgba(255,255,255,0.15);
 }
 
 [data-testid="stAppViewContainer"] {
@@ -32,12 +32,12 @@ DARK_CSS = """
 }
 
 .section-card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: rgba(255,255,255,0.12);
   padding: 18px;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-  color: #e6eef8;
-  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 6px 18px rgba(255,255,255,0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
 .profile-img{
@@ -50,8 +50,8 @@ DARK_CSS = """
   padding:6px 10px;
   margin:4px 4px 4px 0;
   border-radius:999px;
-  background: linear-gradient(90deg,#4f46e5,#a78bfa);
-  color: #ffffff !important;
+  background: linear-gradient(90deg,#1e3a8a,#3b82f6);
+  color: #ffffff !important; text-shadow: 0 0 4px rgba(0,0,0,0.6);
   font-weight:600;
   font-size:13px;
 }
@@ -149,7 +149,7 @@ with left:
 
     # Job: Associate Manager
     st.markdown("<strong>Associate Manager – Analytics & Software Asset Insights | HCLTECH, Lucknow</strong>", unsafe_allow_html=True)
-    st.markdown("<span class='small-muted'>Jan 2025 – Present</span>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Dec 2023 – Present</span>", unsafe_allow_html=True)
     st.write('')
     st.markdown("""
 - Led data-driven software asset lifecycle management using ServiceNow, achieving **98% asset data accuracy** across procurement and usage records.
@@ -162,7 +162,7 @@ with left:
     st.write('')
     # Job: Senior Software Engineer (condensed / analytics focused)
     st.markdown("<strong>Senior Software Engineer – Analytics Contributor | HCLTECH, Lucknow</strong>", unsafe_allow_html=True)
-    st.markdown("<span class='small-muted'>Jan 2020 – Dec 2025</span>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Jan 2020 – Dec 2023</span>", unsafe_allow_html=True)
     st.write('')
     st.markdown("""
 - Produced monthly analytical reports and automated Excel/SQL pipelines for stakeholder reporting.
