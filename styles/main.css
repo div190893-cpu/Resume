@@ -1,31 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
-
-
-* {font-family: 'Readex Pro';}
-
-
-a {
-    text-decoration: none;
-    color: rgb(161 67 0 / 65%) !important;
-    font-weight: 500;
+:root{
+  --bg:#000000;
+  --card:#111111;
+  --muted:#ffffff;
 }
 
-
-
-
-
-a:hover {
-    color: #d33682 !important;
-    text-decoration: none;
+/* ----------- FORCE ALL TEXT PURE WHITE ----------- */
+html, body, * {
+    color: #ffffff !important;
 }
 
-ul {list-style-type: none;}
-
-hr {
-    margin-top: 0px;
-    margin-bottom: 5%;
+/* Streamlit specific class overrides */
+.stText, .stMarkdown, .stColumn, .stTextInput, .stCaption, .stSubheader, 
+.stHeader, .stDataFrame, .stSelectbox, .stTextArea, 
+.st-emotion-cache-*, .css-*, p, span, li, ul, ol, h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    opacity: 1 !important;
 }
 
-#MainMenu {visibility: hidden;}
+/* markdown bullet dots & list markers */
+ul li::marker, ol li::marker {
+    color: #ffffff !important;
+}
+
+/* links */
+a, a:link, a:visited {
+    color: #ffffff !important;
+}
+
+/* icons (svg) */
+svg, svg path {
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+/* ----------- CARDS ----------- */
+.section-card{
+  background: rgba(255,255,255,0.12);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* profile img */
+.profile-img{
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+/* badges */
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  margin:4px 4px 4px 0;
+  border-radius:999px;
+  background: linear-gradient(90deg,#1e3a8a,#3b82f6);
+  color:#ffffff !important;
+  font-weight:600;
+  font-size:13px;
+}
+
+/* background */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(180deg, var(--bg) 0%, #071028 100%);
+}
+
+/* centre footer removal */
+#MainMenu {visibility: hidden;} 
 footer {visibility: hidden;}
-header {visibility: hidden;}
