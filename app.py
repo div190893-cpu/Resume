@@ -17,7 +17,7 @@ PAGE_TITLE = "Digital CV | Divyansh"
 PAGE_ICON = ":wave:"
 NAME = "Divyansh"
 DESCRIPTION = """
-Data Analyst,Machine Learning Engineer assisting enterprises by supporting data-driven decision-making.
+Results-oriented Analytics Manager with expertise in data analysis, reporting automation, and insight generation. Proven ability to turn data into actionable business recommendations and drive process improvements.
 """
 EMAIL = "Divyansh_19@yahoo.com"
 SOCIAL_MEDIA = {
@@ -80,10 +80,14 @@ st.write('\n')
 st.subheader("Experience & Qualification")
 st.write(
     """
-- ✔️ 2 Years experience extracting actionable insights from data
-- ✔️ Strong hands on experience and knowledge in Python,R, Matlab and Excel
-- ✔️ Good understanding of statistical principles and their respective applications
-- ✔️ Excellent team-player and displaying strong sense of initiative on tasks
+- ✔️Strong foundation in Data Analysis, Statistical Methods, Forecasting, and Insight Generation.
+- ✔️Proficient in SQL, Excel, Data Visualization, Reporting Automation, and working knowledge of Python (if applicable—let me know if you want to include).
+- ✔️Solid understanding of analytics lifecycle—data extraction, cleaning, transformation, exploration, and interpretation.
+- ✔️Experience developing and presenting analytical insights to C-level and senior stakeholders for strategic decision-making.
+- ✔️Knowledge of machine learning basics, predictive analysis, and applied analytics concepts (optional—confirm if you want to add more ML-specific points).
+- ✔️Strong communication, leadership, and stakeholder management skills, ensuring alignment between data insights and business goals.
+- ✔️Proven ability to manage multiple analytics initiatives, lead teams, and deliver measurable business impact.
+- ✔️Familiar with data governance, audit readiness, and compliance-driven data analytics.
 """
 )
 
@@ -113,7 +117,13 @@ st.write(
     """
 - ► Used PowerBI and SQL to redeﬁne and track KPIs surrounding marketing initiatives, and supplied recommendations to boost landing page conversion rate by 38%
 - ► Led a team of 4 analysts to brainstorm potential marketing and sales improvements, and implemented A/B tests to generate 15% more client leads
-- ► 
+- ► Led data-driven software asset lifecycle management using ServiceNow, ensuring 98% asset data accuracy across procurement, deployment, and usage records.
+- ►Translated complex analytical insights into clear business recommendations for senior leadership, influencing procurement strategy and vendor negotiations.
+- ►Collaborated with Finance, IT, Procurement, and Legal to align software planning with budget cycles, compliance frameworks, and operational goals.
+- ►Implemented workflow and reporting automation within ServiceNow, improving processing efficiency and reducing data discrepancies by 25%.
+- ►Provided validated datasets and comprehensive documentation to support internal and external audits, ensuring 100% audit readiness.
+- ►Forecasted future software and resource requirements using historical trends and usage patterns, enabling more accurate budget planning and contract renewals.
+- ►Mentored internal teams on compliance standards, data interpretation, and effective usage of analytics dashboards, improving overall stakeholder adoption by 30%.
 """
 )
 
@@ -127,6 +137,10 @@ st.write(
 - ► Created various Excel documents to assist with pulling metrics data and presenting  information to stakeholders for concise explanations of best placement for needed resources.
 - ► Utilized data visualization tools to effectively communicate business insights.
 - ► Extracted and interpreted data patterns to translate findings into actionable outcomes.
+- ►Analyzed large datasets on license utilization and consumption trends, identifying underutilized assets and driving 12–18% annual cost savings through optimization recommendations.
+- ►Developed automated dashboards and reports that improved visibility into spend, compliance gaps, and usage patterns, reducing manual reporting efforts by 40%.
+- ►Conducted periodic license compliance audits, reconciling entitlements vs. consumption and helping reduce audit exposure by 30%.
+
 """
 )
 
