@@ -149,7 +149,7 @@ with left:
 
     # Job: Associate Manager
     st.markdown("<strong>Associate Manager – Analytics & Software Asset Insights | HCLTECH, Lucknow</strong>", unsafe_allow_html=True)
-    st.markdown("<span class='small-muted'>Dec 2023 – Present</span>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Jan 2025 – Present</span>", unsafe_allow_html=True)
     st.write('')
     st.markdown("""
 - Led data-driven software asset lifecycle management using ServiceNow, achieving **98% asset data accuracy** across procurement and usage records.
@@ -162,10 +162,10 @@ with left:
     st.write('')
     # Job: Senior Software Engineer (condensed / analytics focused)
     st.markdown("<strong>Senior Software Engineer – Analytics Contributor | HCLTECH, Lucknow</strong>", unsafe_allow_html=True)
-    st.markdown("<span class='small-muted'>Jan 2020 – Dec 2023</span>", unsafe_allow_html=True)
+    st.markdown("<span class='small-muted'>Jan 2020 – Dec 2024</span>", unsafe_allow_html=True)
     st.write('')
     st.markdown("""
-- Produced monthly analytical reports and automated Excel/SQL pipelines for stakeholder reporting.
+- Produced monthly analytical reports and automated Excel for stakeholder reporting.
 - Built dashboards to communicate KPIs and supported data-driven resource allocation.
 - Led initiatives to optimize software spend and compliance, contributing to **12–18% cost savings** through data analysis.
 - Conducted periodic compliance reconciliations and improved reporting accuracy by **30%**.
@@ -179,6 +179,9 @@ with left:
     st.markdown("""
 - Wrote and optimized SQL scripts for complex analyses and report generation.
 - Developed analytical databases and client deliverables; performed SAP-related research for client engagements.
+- Developing new queries / Methodologies to recover money for client
+- Advising clients for efficient ways to record transactions
+- Providing input to Lead for Analyst performance reviews and PGPs
 """, unsafe_allow_html=True)
 
     st.write('')
@@ -187,6 +190,10 @@ with left:
     st.write('')
     st.markdown("""
 - Extracted and analyzed data using SQL and Excel; automated reporting workflows and maintained KPI dashboards.
+- Finding Errors in data with the help of SQL queries for recovering money for our clients
+- Writing and presenting all formal client deliverables and reports
+- Developing analytical databases from complex financial source data
+- Doing research on Client SAP for various reasons
 """, unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
